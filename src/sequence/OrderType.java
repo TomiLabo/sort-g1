@@ -1,0 +1,6 @@
+package sequence;
+
+public enum OrderType {
+    ASC, // 1, 2, 3, 4, 5 ...
+    DESC, // 1, 2, 3, 4, 5 ...
+}
