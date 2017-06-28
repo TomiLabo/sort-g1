@@ -73,7 +73,7 @@ public class NumDataSequence {
     }
 
     public int[] getAll() {
-        // retutn copy object, because `this.raw` be should not write by outside.
+        // retutn copy object, because `this.raw` should not be written by outside.
         int array[] = new int[this.raw.size()];
         for (int i = 0; i < this.raw.size(); i++) {
             array[i] = this.raw.get(i);
