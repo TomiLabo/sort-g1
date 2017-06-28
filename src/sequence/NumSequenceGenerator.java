@@ -23,13 +23,30 @@ public class NumSequenceGenerator {
     
     public static NumDataSequence generateByShuffle(int size, double probability) {
         NumDataSequence dataSequence = NumSequenceGenerator.generateOfSorted(size);
-        Random randFunc = new Random();
+        if (probability > 1.00) {
+            System.out.println(
+                    "[WARNING]"
+                    + " NumSequenceGenerator.generateByShuffle()"
+                    + " unexpected probability. probability is expected lower 1.00."
+                );
+        }
         for (int i = 0; i < size; i++) {
             if (Math.random() > probability) { continue; }
-            int right = randFunc.nextInt(size);
+            int right = getUniqNumber(i, size);
             dataSequence.swap(i, right);
         }
         return dataSequence;
+    }
+    
+    private static int getUniqNumber(int unexpectedNum, int range) {
+        boolean generated = false;
+        Random randFunc = new Random();
+        while (!generated) {
+            int right = randFunc.nextInt(range);
+            if (right == unexpectedNum) continue;
+            return right;
+        }
+        return -1;
     }
     
     public static NumDataSequence generateByExchange(int size, int changeCount) {

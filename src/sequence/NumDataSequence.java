@@ -7,8 +7,8 @@ import java.util.Collections;
  * @author maxmellon 
  */
 public class NumDataSequence {
-    private int compareCount = 0;
-    private int swapCount = 0;
+    public int compareCount = 0;
+    public int swapCount = 0;
     private ArrayList<Integer> raw = new ArrayList<Integer>();
 
     public NumDataSequence(final int[] dataList) {
@@ -17,6 +17,10 @@ public class NumDataSequence {
         }
     }
     
+    public void reset() {
+        compareCount = 0;
+        swapCount = 0;
+    }
     /**
      * <b>現在の配列の状態を出力する</b><br />
      * 例 : [ 1, 3, 4, 0, 2 ]
@@ -82,6 +86,10 @@ public class NumDataSequence {
     }
     
 
+    public int size() {
+        return this.raw.size();
+    }
+    
     /**
      * <b>自身のデータがソート済みかどうかを判定する</b><br />
      * 例1 : this.raw が [ 2, 3, 4, 5 ] のとき // => true <br />
@@ -105,5 +113,14 @@ public class NumDataSequence {
             }
         }
         return true;
+    }
+
+    public void showResult(final String type) {
+        System.out.printf("\t| 比較回数\t\t交換回数\n");
+        System.out.printf("%s\t| %d\t\t\t%d\n", type, this.compareCount, this.swapCount);
+    }
+    
+    public void showResultCSV() {
+        System.out.printf("%10d,%10d,%10d,\n", this.raw.size(), this.compareCount, this.swapCount);
     }
 }
