@@ -38,21 +38,21 @@ public class NumDataSequence {
     /**
      * <b>l番目のデータとr番目のデータを入れ替える</b><br />
      * this.raw が [ 0, 2, 1 ] のとき，swap(1, 2) すると this.raw が [ 0, 1, 2 ] になる
-     * @param l スワップ前の左側の添字
-     * @param r スワップ前の右側の添字
+     * @paraml {int} p1 スワップ前の左側の添字
+     * @paramr {int} p2 スワップ前の右側の添字
      * @return void
      */
-    public void swap(int l, int r) {
+    public void swap(int p1, int p2) {
         swapCount++;
-        Collections.swap(this.raw, l, r);
+        Collections.swap(this.raw, p1, p2);
     }
 
-    public void swapDebug(int l, int r) {
+    public void swapDebug(int p1, int p2) {
         swapCount++;
         System.out.println("交換 : ");
         System.out.print("前 : ");
         this.show();
-        Collections.swap(this.raw, l, r);
+        Collections.swap(this.raw, p1, p2);
         System.out.print("後 : ");
         this.show();
     }
