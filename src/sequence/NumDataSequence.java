@@ -103,6 +103,23 @@ public class NumDataSequence {
         return true;
     }
 
+    /**
+     * <b>自身のデータが <i>range番目まで</i>ソート済みかどうかを判定する</b><br />
+     * @param range 0 から range番目まで の range
+     * @return boolean
+     */
+    public boolean isSorted(int range) {
+        if (range > this.raw.size()){
+            throw new IndexOutOfBoundsException(
+                "NumDataSequence::isSorted(int) 範囲外の range が渡されました。"
+                );
+        }
+        for (int i = 0; i < range; i++) {
+            if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
+        }
+        return true;
+    }
+
     public boolean isSorted(OrderType type) {
         for (int i = 0; i < this.raw.size(); i++) {
             switch (type) {
@@ -110,6 +127,31 @@ public class NumDataSequence {
                 if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
             case DESC:
                 if (this.raw.get(i - 1) < this.raw.get(i)) { return false; }
+            default:
+                throw new IndexOutOfBoundsException(
+                        "NumDataSequence::isSorted(OrderType), 期待しないOrderTypeが渡されました"
+                        );
+            }
+        }
+        return true;
+    }
+
+    public boolean isSorted(OrderType type, int range) {
+        if (range > this.raw.size()){
+            throw new IndexOutOfBoundsException(
+                "NumDataSequence::isSorted(OrderType,int), 範囲外の range が渡されました。"
+                );
+        }
+        for (int i = 0; i < range; i++) {
+            switch (type) {
+            case ASC:
+                if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
+            case DESC:
+                if (this.raw.get(i - 1) < this.raw.get(i)) { return false; }
+            default:
+                throw new IndexOutOfBoundsException(
+                        "NumDataSequence::isSorted(OrderType,int), 期待しないOrderTypeが渡されました"
+                        );
             }
         }
         return true;
