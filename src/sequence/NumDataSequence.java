@@ -9,10 +9,12 @@ import java.util.Collections;
 public class NumDataSequence {
     private int compareCount = 0;
     private int swapCount = 0;
-    private ArrayList<Integer> raw;
+    private ArrayList<Integer> raw = new ArrayList<Integer>();
 
-    public NumDataSequence() {
-        
+    public NumDataSequence(final int[] dataList) {
+        for (int i = 0; i < dataList.length; i++) {
+            this.raw.add(dataList[i]);
+        }
     }
     
     /**
@@ -28,18 +30,6 @@ public class NumDataSequence {
         System.out.print("]\n");
     }
     
-    /**
-     * <b>自身のデータがソート済みかどうかを判定する</b><br />
-     * 例1 : this.raw が [ 2, 3, 4, 5 ] のとき // => true <br />
-     * 例2 : this.raw が [ 2, 4, 3, 5 ] のとき // => false 
-     * @return boolean
-     */
-    public boolean isSorted() {
-        for (int i = 0; i < this.raw.size(); i++) {
-            if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
-        }
-        return true;
-    }
     
     /**
      * <b>l番目のデータとr番目のデータを入れ替える</b><br />
@@ -51,6 +41,16 @@ public class NumDataSequence {
     public void swap(int l, int r) {
         swapCount++;
         Collections.swap(this.raw, l, r);
+    }
+
+    public void swapDebug(int l, int r) {
+        swapCount++;
+        System.out.println("交換 : ");
+        System.out.print("前 : ");
+        this.show();
+        Collections.swap(this.raw, l, r);
+        System.out.print("後 : ");
+        this.show();
     }
     
     public boolean order(int l, int r) {
@@ -81,6 +81,19 @@ public class NumDataSequence {
         return array;
     }
     
+
+    /**
+     * <b>自身のデータがソート済みかどうかを判定する</b><br />
+     * 例1 : this.raw が [ 2, 3, 4, 5 ] のとき // => true <br />
+     * 例2 : this.raw が [ 2, 4, 3, 5 ] のとき // => false 
+     * @return boolean
+     */
+    public boolean isSorted() {
+        for (int i = 0; i < this.raw.size(); i++) {
+            if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
+        }
+        return true;
+    }
 
     public boolean isSorted(OrderType type) {
         for (int i = 0; i < this.raw.size(); i++) {
