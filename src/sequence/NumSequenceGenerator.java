@@ -31,22 +31,12 @@ public class NumSequenceGenerator {
                 );
         }
         for (int i = 0; i < size; i++) {
+            Random randFunc = new Random();
             if (Math.random() > probability) { continue; }
-            int right = getUniqNumber(i, size);
+            int right = randFunc.nextInt(size);
             dataSequence.swap(i, right);
         }
         return dataSequence;
-    }
-    
-    private static int getUniqNumber(int unexpectedNum, int range) {
-        boolean generated = false;
-        Random randFunc = new Random();
-        while (!generated) {
-            int right = randFunc.nextInt(range);
-            if (right == unexpectedNum) continue;
-            return right;
-        }
-        return -1;
     }
     
     public static NumDataSequence generateByExchange(int size, int changeCount) {

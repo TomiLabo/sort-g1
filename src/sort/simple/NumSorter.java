@@ -22,5 +22,48 @@ public class NumSorter {
             }
         }
     }
+    
+    public static void gnome(NumDataSequence seq) {
+        int k = 1;
+        while (k < seq.size()) {
+            if (seq.order(k-1, k)) { k++; continue; }
+            seq.swap(k-1, k);
+            k += k > 1 ? - 1 : 1;
+        }
+    }
 
+    public static void trans(NumDataSequence seq) {
+        boolean doing = true;
+        
+        while (doing) {
+            doing = false;
+            for (int k = 0; k < seq.size() - 1; k += 2) {
+                if (!seq.order(k, k + 1)) {
+                    seq.swap(k, k + 1);
+                    doing = true;
+                }
+            }
+            for (int k = 1; k < seq.size() - 1; k += 2) {
+                if (!seq.order(k, k + 1)) {
+                    seq.swap(k, k + 1);
+                    doing = true;
+                }
+            }
+        }
+    }
+    
+    public static void shaker(NumDataSequence seq) {
+        int i = 1;
+        int j = seq.size() - 1;
+        while (i < j) {
+            for (int k = i; k < j; k++) {
+                if (!seq.order(k - 1, k)) { seq.swap(k - 1, k); }
+            }
+            for (int k = j; k < i; k--) {
+                if (!seq.order(k - 1, k)) { seq.swap(k - 1, k); }
+            }
+            i++;
+            j--;
+        }
+    }
 }

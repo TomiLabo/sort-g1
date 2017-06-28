@@ -13,15 +13,11 @@ public class Main {
             System.out.printf("%d,", i);
             for (double j = 0.00; j <= 1.00; j += 0.10) {
                 NumDataSequence dataSeq1 = NumSequenceGenerator.generateByShuffle(i, j);
-                NumSorter.select(dataSeq1);
+                NumSorter.shaker(dataSeq1);
                 System.out.printf("%d,%d,", dataSeq1.compareCount, dataSeq1.swapCount);
                 dataSeq1.reset();
             }
             System.out.println("");
         }
-
-        NumDataSequence dataSeq2 = NumSequenceGenerator.generateByShuffle(10000, 1.00);
-        NumSorter.insert(dataSeq2);
-        dataSeq2.showResult("挿入");
     }
 }

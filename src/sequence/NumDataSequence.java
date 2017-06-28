@@ -37,7 +37,7 @@ public class NumDataSequence {
     
     /**
      * <b>l番目のデータとr番目のデータを入れ替える</b><br />
-     * this.raw が [ 2, 4, 3 ] のとき，swap(1, 2) すると this.raw が [ 2, 3, 4 ] になる
+     * this.raw が [ 0, 2, 1 ] のとき，swap(1, 2) すると this.raw が [ 0, 1, 2 ] になる
      * @param l スワップ前の左側の添字
      * @param r スワップ前の右側の添字
      * @return void
@@ -92,8 +92,8 @@ public class NumDataSequence {
     
     /**
      * <b>自身のデータがソート済みかどうかを判定する</b><br />
-     * 例1 : this.raw が [ 2, 3, 4, 5 ] のとき // => true <br />
-     * 例2 : this.raw が [ 2, 4, 3, 5 ] のとき // => false 
+     * 例1 : this.raw が [ 0, 1, 2, 3 ] のとき // => true <br />
+     * 例2 : this.raw が [ 0, 2, 1, 2 ] のとき // => false 
      * @return boolean
      */
     public boolean isSorted() {
