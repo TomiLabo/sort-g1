@@ -17,7 +17,7 @@ public class NumDataSequence {
         }
     }
     
-    public void reset() {
+    public void clearRecord() {
         compareCount = 0;
         swapCount = 0;
     }
@@ -26,14 +26,13 @@ public class NumDataSequence {
      * 例 : [ 1, 3, 4, 0, 2 ]
      * @return void
      */
-    public void show() {
+    public void alphaShow() {
         System.out.print("[ ");
         for (int data: raw) {
             System.out.printf("%d ", data);
         }
         System.out.print("]\n");
     }
-    
     
     /**
      * <b>l番目のデータとr番目のデータを入れ替える</b><br />
@@ -47,19 +46,27 @@ public class NumDataSequence {
         Collections.swap(this.raw, p1, p2);
     }
 
-    public void swapDebug(int p1, int p2) {
+    public void alphaSwapDebug(int p1, int p2) {
         swapCount++;
         System.out.println("交換 : ");
         System.out.print("前 : ");
-        this.show();
+        this.alphaShow();
         Collections.swap(this.raw, p1, p2);
         System.out.print("後 : ");
-        this.show();
+        this.alphaShow();
+    }
+   
+    public boolean sortIfNeeded(int p1, int p2) {
+        if (this.order(p1, p2)) {
+            this.swap(p1, p2);
+            return true;
+        }
+        return false;
     }
     
-    public boolean order(int l, int r) {
+    public boolean order(int p1, int p2) {
         compareCount++;
-        return this.raw.get(l) <= this.raw.get(r);
+        return this.raw.get(p1) <= this.raw.get(p2);
     }
 
     public boolean orderBy(OrderType type, int l, int r) {
@@ -70,9 +77,7 @@ public class NumDataSequence {
         case DESC:
             return this.raw.get(l) >= this.raw.get(r);
         default:
-            throw new IndexOutOfBoundsException(
-                    "NumDataSequence::compare, 期待しないOrderTypeが渡されました"
-                    );
+            return false;
         }
     }
 
@@ -109,49 +114,19 @@ public class NumDataSequence {
      * @return boolean
      */
     public boolean isSorted(int range) {
-        if (range > this.raw.size()){
-            throw new IndexOutOfBoundsException(
-                "NumDataSequence::isSorted(int) 範囲外の range が渡されました。"
-                );
-        }
-        for (int i = 0; i < range; i++) {
+        for (int i = 1; i < range; i++) {
             if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
         }
         return true;
     }
 
-    public boolean isSorted(OrderType type) {
-        for (int i = 0; i < this.raw.size(); i++) {
-            switch (type) {
-            case ASC:
-                if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
-            case DESC:
-                if (this.raw.get(i - 1) < this.raw.get(i)) { return false; }
-            default:
-                throw new IndexOutOfBoundsException(
-                        "NumDataSequence::isSorted(OrderType), 期待しないOrderTypeが渡されました"
-                        );
-            }
-        }
-        return true;
-    }
-
-    public boolean isSorted(OrderType type, int range) {
-        if (range > this.raw.size()){
-            throw new IndexOutOfBoundsException(
-                "NumDataSequence::isSorted(OrderType,int), 範囲外の range が渡されました。"
-                );
-        }
+    public boolean isSorted(int range, OrderType type) {
         for (int i = 0; i < range; i++) {
             switch (type) {
             case ASC:
                 if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
             case DESC:
                 if (this.raw.get(i - 1) < this.raw.get(i)) { return false; }
-            default:
-                throw new IndexOutOfBoundsException(
-                        "NumDataSequence::isSorted(OrderType,int), 期待しないOrderTypeが渡されました"
-                        );
             }
         }
         return true;
