@@ -1,6 +1,7 @@
 package sequence;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 /**
  * @classdoc 正整数の配列を管理するクラス
@@ -9,12 +10,10 @@ import java.util.Collections;
 public class NumDataSequence {
     public int compareCount = 0;
     public int swapCount = 0;
-    private ArrayList<Integer> raw = new ArrayList<Integer>();
+    private Integer[] raw;
 
-    public NumDataSequence(final int[] dataList) {
-        for (int i = 0; i < dataList.length; i++) {
-            this.raw.add(dataList[i]);
-        }
+    public NumDataSequence(final Integer[] dataList) {
+        this.raw = dataList;
     }
     
     public void clearRecord() {
@@ -36,6 +35,7 @@ public class NumDataSequence {
     
     /**
      * <b>l番目のデータとr番目のデータを入れ替える</b><br />
+     * this.raw = dataList;
      * this.raw が [ 0, 2, 1 ] のとき，swap(1, 2) すると this.raw が [ 0, 1, 2 ] になる
      * @paraml {int} p1 スワップ前の左側の添字
      * @paramr {int} p2 スワップ前の右側の添字
@@ -43,7 +43,7 @@ public class NumDataSequence {
      */
     public void swap(int p1, int p2) {
         swapCount++;
-        Collections.swap(this.raw, p1, p2);
+        Collections.swap(Arrays.asList(this.raw), p1, p2);
     }
 
     public void alphaSwapDebug(int p1, int p2) {
@@ -51,7 +51,7 @@ public class NumDataSequence {
         System.out.println("交換 : ");
         System.out.print("前 : ");
         this.alphaShow();
-        Collections.swap(this.raw, p1, p2);
+        Collections.swap(Arrays.asList(this.raw), p1, p2);
         System.out.print("後 : ");
         this.alphaShow();
     }
@@ -66,16 +66,16 @@ public class NumDataSequence {
     
     public boolean order(int p1, int p2) {
         compareCount++;
-        return this.raw.get(p1) <= this.raw.get(p2);
+        return this.raw[p1] <= this.raw[p2];
     }
 
-    public boolean orderBy(OrderType type, int l, int r) {
+    public boolean orderBy(OrderType type, int p1, int p2) {
         compareCount++;
         switch (type) {
         case ASC:
-            return this.raw.get(l) <= this.raw.get(r);
+            return this.raw[p1] <= this.raw[p2];
         case DESC:
-            return this.raw.get(l) >= this.raw.get(r);
+            return this.raw[p1] >= this.raw[p2];
         default:
             return false;
         }
@@ -83,16 +83,16 @@ public class NumDataSequence {
 
     public int[] getAll() {
         // retutn copy object, because `this.raw` should not be written by outside.
-        int array[] = new int[this.raw.size()];
-        for (int i = 0; i < this.raw.size(); i++) {
-            array[i] = this.raw.get(i);
+        int array[] = new int[this.raw.length];
+        for (int i = 0; i < this.raw.length; i++) {
+            array[i] = this.raw[i];
         }
         return array;
     }
     
 
     public int size() {
-        return this.raw.size();
+        return this.raw.length;
     }
     
     /**
@@ -102,8 +102,8 @@ public class NumDataSequence {
      * @return boolean
      */
     public boolean isSorted() {
-        for (int i = 0; i < this.raw.size(); i++) {
-            if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
+        for (int i = 0; i < this.raw.length; i++) {
+            if (this.raw[i - 1] > this.raw[i]) { return false; }
         }
         return true;
     }
@@ -115,7 +115,7 @@ public class NumDataSequence {
      */
     public boolean isSorted(int range) {
         for (int i = 1; i < range; i++) {
-            if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
+            if (this.raw[i - 1] > this.raw[i]) { return false; }
         }
         return true;
     }
@@ -124,9 +124,9 @@ public class NumDataSequence {
         for (int i = 0; i < range; i++) {
             switch (type) {
             case ASC:
-                if (this.raw.get(i - 1) > this.raw.get(i)) { return false; }
+                if (this.raw[i - 1] > this.raw[i]) { return false; }
             case DESC:
-                if (this.raw.get(i - 1) < this.raw.get(i)) { return false; }
+                if (this.raw[i - 1] < this.raw[i]) { return false; }
             }
         }
         return true;
@@ -138,6 +138,6 @@ public class NumDataSequence {
     }
     
     public void showResultCSV() {
-        System.out.printf("%10d,%10d,%10d,\n", this.raw.size(), this.compareCount, this.swapCount);
+        System.out.printf("%10d,%10d,%10d,\n", this.raw.length, this.compareCount, this.swapCount);
     }
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 public class NumSequenceGenerator {
 
     public static NumDataSequence generateOfSorted(int size) {
-        int[] dataList = new int[size];
+        Integer[] dataList = new Integer[size];
         for (int i = 0; i < size; i++) {
             dataList[i] = i;
         }
@@ -13,7 +13,7 @@ public class NumSequenceGenerator {
     }
      
     public static NumDataSequence generateByRandom(int size) {
-        int[] dataList = new int[size];
+        Integer[] dataList = new Integer[size];
         Random randFunc = new Random();
         for (int i = 0; i < size; i++) {
             dataList[i] = randFunc.nextInt(size);
